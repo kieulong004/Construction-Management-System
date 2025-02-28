@@ -1,0 +1,105 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    /* background: linear-gradient(135deg, #f5f7fa, #c3cfe2); */
+}
+
+.signin-container {
+    background: linear-gradient(rgba(225, 225, 225, 0.5), rgba(225, 225, 225, 0.7)), url('../assets/background.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background: url('../assets/background.jpg');
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container h2 {
+    margin-bottom: 1.5rem;
+    color: #007bff;
+    font-size: 24px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 0 0.75rem 0.75rem;
+    box-sizing: border-box;
+    margin: 0.5rem 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.forgot-password {
+    margin-top: 12px;
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+.forgot-password a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.additional-links {
+    margin-top: 1rem;
+}
+
+.additional-links a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.additional-links a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}

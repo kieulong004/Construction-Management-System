@@ -1,0 +1,127 @@
+.data-filter-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  /* margin: 0 10px; */
+  align-items: center;
+  gap: 15px;
+  padding: 20px 3px;
+}
+
+.date-picker-container {
+  display: flex;
+  gap: 20px;
+}
+
+.date-picker-wrapper {
+  position: relative;
+}
+
+body.dark-mode .date-picker-wrapper .custom-datepicker  {
+    background: #1c1c1d;
+    color: #fff;
+}
+
+body.dark-mode .camera-select-wrapper .camera-select  {
+  background: #1c1c1d;
+  color: #fff;
+}
+
+.filter-button {
+  margin: 0 20px;
+  font-size: 14px;
+  padding: 10px 22px;
+  border: none;
+  background-color: #bd2d2d;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+body.dark-mode .filter-button {
+  background-color: #333333;
+  border: 1px solid #DDDDDD;
+}
+
+body.dark-mode .filter-button:hover {
+  background-color: #000000;
+  border: 1px solid #DDDDDD;
+}
+
+.filter-button:hover {
+  background-color: #a61f1f;
+}
+
+.custom-datepicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #fff;
+  min-width: 150px;
+}
+
+.camera-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #fff;
+  min-width: 150px;
+}
+
+.camera-select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #333;
+  font-size: 14px;
+}
+
+.camera-select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.camera-select[multiple] {
+  height: auto;
+  min-height: 100px;
+}
+
+.custom-datepicker:hover {
+  background: #f4f4f4;
+}
+
+.camera-select:hover {
+  background: #f4f4f4;
+}
+
+.calendar-icon {
+  color: #007bff;
+}
+
+.date-picker-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  background: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.react-datepicker {
+  display: flex;
+}
+.react-datepicker-time__header {
+  padding: 12.5px;
+}

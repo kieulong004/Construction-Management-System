@@ -1,0 +1,123 @@
+{
+  "header": {
+    "construction_Monitoring_Dashboard": "Construction Monitoring Dashboard",
+    "logo": "Logo"
+  },
+  "top-tabs": {
+    "worker": "Worker",
+    "contractor": "Contractor",
+    "safe_labor_hours": "Safe labor hours",
+    "discover_violations": "Discover violations",
+    "workers_at_the_site": "Workers at the site",
+    "daily_work": "Daily work"
+  },
+  "charts1": {
+    "workers": "Number of workers working",
+    "quantity": "Quantity",
+    "day_1": "Day 1",
+    "day_2": "Day 2",
+    "day_3": "Day 3",
+    "day_4": "Day 4",
+    "day":"Day"
+  },
+  "charts2": {
+    "work_progress": "Work progress",
+    "contractor": "Contractor",
+    "contractor_A": "Contractor A",
+    "contractor_B": "Contractor B",
+    "contractor_C": "Contractor C",
+    "completed": "Completed",
+    "unfinished": "Unfinished"
+  },
+  "charts3": {
+    "worker_count": "Worker Count",
+    "contractor": "Contractor",
+    "contractor_A": "Contractor A",
+    "contractor_B": "Contractor B",
+    "contractor_C": "Contractor C"
+  },
+  "charts4": {
+    "the_number_of_workers_violating_safety": "The number of workers violating safety",
+    "quantity": "Quantity",
+    "safety_hat":"Safety_hat",
+    "safety_vest":"Safety_vest"
+  },
+  "charts5": {
+    "vehicle_count": "Number of Vehicles Entering and Exiting",
+    "quantity": "Quantity",
+    "vehicle": "Vehicle",
+    "vehicleIn": "Vehicle In",
+    "vehicleOut": "Vehicle Out"
+
+  },
+  "charts6": {
+    "worker_check_in_out": "Number of Workers Check-in/Out",
+    "quantity": "Quantity",
+    "check_in": "Check-in",
+    "check_out": "Check-out",
+    "number_of_rows_per_page":"Number of rows per page"
+  },
+  "charts7": {
+    "safety_training_rate": "Safety Training Rate",
+    "trained": "Trained",
+    "not_trained": "Not Trained",
+    "status": "Status",
+    "quantity": "Quantity"
+  },
+  "charts8": {
+    "workers_on_site": "Number of Workers on Site",
+    "time_of_day": "Hours of the Day",
+    "quantity": "Quantity"
+  },
+  "section2": {
+    "info": "Information",
+    "value": "Value",
+    "time": "Time",
+    "event_type": "EventType",
+    "employee_id": "Employee ID",
+    "employee_name": "Employee Name",
+    "helmet": "Helmet",
+    "vest": "Vest",
+    "face_recognition": "Face Recognition",
+    "no_helmet": "No helmet",
+    "no_vest": "No vest",
+    "no_mask": "No mask",
+    "id":"ID Camera",
+    "name":"Name Camera",
+    "ip":"IP Camera",
+    "location":"Location"
+
+  },
+  "table-taps": {
+    "recent_events": "5 Recent Events",
+    "id": "Event ID",
+    "device_name": "Device Name",
+    "camera_name": "Camera Name",
+    "worker_name": "Worker_name",
+    "contractor": "Contractor",
+    "contractor_A": "contractor A",
+    "contractor_B": "contractor B",
+    "contractor_C": "contractor C",
+    "position": "Position",
+    "assistant": "Assistant",
+    "nguyen_duc_manh": "Nguyen Duc Manh",
+    "Painter": "Painter",
+    "safety_training": "Safety Training",
+    "time": "Start Time",
+    "learned": "Learned",
+    "safety_hat": "Safety Hat",
+    "safety_vest": "Safety Vest",
+    "note": "Note",
+    "check_in": "Check-in",
+    "check_out": "Check-out",
+    "save_file_location":"Image",
+    "inout":"Status",
+    "description":"Description",
+    "vehicle_type":"Vehicle",
+    "action": "Action"
+  },
+  "languaue":{
+    "date_format": "MM/dd/yyyy",
+    "time_format": "hh:mm a"
+  }
+}

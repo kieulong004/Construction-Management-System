@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Management</title>
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007bff;
+            padding: 15px 30px;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 400;
+        }
+        .logout-button {
+            padding: 10px 20px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        .logout-button i {
+            margin-right: 8px;
+        }
+        .logout-button:hover {
+            background-color: #004494;
+        }
+        table { 
+            width: 50%; 
+            margin: 0 auto; 
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            table-layout: auto;
+        }
+        th, td { 
+            padding: 10px; 
+            text-align: left; 
+            color: #555;
+        }
+        th { 
+            background-color: #6c757d; 
+            color: white;
+            font-weight: 500;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .status { 
+            display: flex; 
+            align-items: center; 
+        }
+        .dot { 
+            height: 12px; 
+            width: 12px; 
+            border-radius: 50%; 
+            display: inline-block; 
+            margin-right: 8px; 
+        }
+        .online { 
+            background-color: #28a745; 
+        }
+        .offline { 
+            background-color: #dc3545; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Trang quản lý thiết bị</h1>
+        <a href="{{ url_for('logout') }}" class="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </header>
+    
+    <table id="deviceTable" class="display nowrap">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên thiết bị</th>
+                <th>IP</th>
+                <th>Device ID</th>
+                <th>Trạng thái</th>
+                <th>Lần cuối trực tuyến</th>
+                <th>Mô tả</th>
+                <th>Trại</th>
+                <th>Tỉnh/Thành phố</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in devices %}
+            <tr>
+                <td>{{ device[0] }}</td>
+                <td>{{ device[1] }}</td>
+                <td>{{ device[2] }}</td>
+                <td>{{ device[3] }}</td>
+                <td>
+                    <div class="status">
+                        {% if device[7] == 'online' %}
+                        <span class="dot online"></span>Trực tuyến
+                        {% else %}
+                        <span class="dot offline"></span>Ngoại tuyến
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    {% if device[7] == 'offline' %}
+                    {{ device[8] }} ({{ device[4] }})
+                    {% else %}
+                    Đang trực tuyến
+                    {% endif %}
+                </td>
+                <td>{{ device[5] }}</td>
+                <td>Phổ Yên</td>
+                <td>Thái Nguyên</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Include jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.print.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#deviceTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                pageLength: 15,
+                lengthChange: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                responsive: true,
+            });
+        });
+    </script>
+</body>
+</html>

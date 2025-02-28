@@ -1,0 +1,315 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #e3e9f6;
+  height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #393835;
+}
+
+header {
+  display: flex;
+  background-color: #000;
+  color: white;
+  padding: 1rem 0 ;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+header section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 5vh;
+  background-color: black;
+}
+
+header section img {
+  height: 85%;
+  position: absolute;
+  left: 1vh;
+  margin: 5px;
+}
+
+header section span {
+  font-weight: bold;
+  color: white;
+}
+
+header .bars {
+  width: 60px;
+  height: 100%;
+  margin-top: 10px;
+}
+
+section {
+  width: 100%;
+}
+
+.top-tabs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.tab-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-number {
+  font-size: 2rem;
+  color: #0078ff;
+  font-weight: bold;
+}
+
+.tab-info {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  padding: 0 20px;
+}
+
+.chart-box {
+  padding: 10px 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 44vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.table-box {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  max-height: 90vh;
+  position: relative;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  background-color: #333;
+  color: white;
+}
+
+/* Light mode row colors */
+.light-mode-odd-row {
+  background-color: #f9f9f9;
+}
+
+.light-mode-even-row {
+  background-color: #ffffff;
+}
+
+/* Dark mode row colors */
+.dark-mode-odd-row {
+  background-color: #333333;
+  color: white;
+}
+
+.dark-mode-even-row {
+  background-color: #444444;
+  color: white;
+}
+
+body.dark-mode .ant-table-thead th {
+  background-color: #444444; 
+  color: #ffffff;            
+  border-bottom: 1px solid #333; 
+}
+
+/* Hover effect */
+.ant-table-tbody > tr:hover {
+  background-color: rgba(0, 0, 255, 0.2) !important;
+  color: #333;
+}
+
+.half-container {
+  height: 100%;
+  width: 100%;
+}
+
+.left-half {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 10px 20px;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.small-card {
+  padding: 10px 0;
+  height: 44vh;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  overflow: hidden;
+}
+
+.right-half {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  padding-bottom: 10px;
+  gap: 10px;
+}
+
+.big-card {
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  flex: 1;
+  font-size: 1.5rem;
+}
+
+.image-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container img {
+  max-height: 40vh;
+  width: auto;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.info-container table {
+  width: 100%;
+  height: 40vh;
+  font-size: 0.9rem;
+}
+
+.info-container th,
+.info-container td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.info-container th {
+  background-color: #0078ff;
+  color: white;
+  font-weight: bold;
+}
+
+.big-card i {
+  margin-right: 10px;
+  font-size: 2rem;
+  color: #0078ff;
+}
+
+.right-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.chart-container {
+  width: 100%;
+  height: 100%;
+}
+
+.dark-mode-toggle {
+  position: fixed;
+  top: 6px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.toggle-icon {
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 50%;
+  transition: color 0.3s;
+}
+
+.toggle-icon.dark {
+  background-color: #1c1c1d;
+  color: #fff;
+}
+
+.toggle-icon.light {
+  background-color: #fff;
+  color: #121212;
+}
+
+/* Dark mode styles */
+.dark-mode header,
+.dark-mode header section,
+.dark-mode header section span {
+  background-color: #1c1c1d;
+  color: #fff;
+}
+
+.light-mode header,
+.light-mode .header,
+.light-mode header section span {
+  background-color: #fff;
+  color: #000;
+}
+
+.dark-mode .dashboard-page {
+  background-color: #393835;
+  color: #fff;
+}
+
+.dashboard-page {
+  background: #ddd;
+}
+
+.dark-mode .tab-card,
+.dark-mode .chart-box,
+.dark-mode .table-box,
+.dark-mode .small-card,
+.dark-mode .big-card {
+  background: #242526;
+  color: #fff;
+  box-shadow: 0 0 10px 2px rgba(57, 56, 53, 0.6);
+}

@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard</title>
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <style>
+            .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            
+            width: 100%;
+            }
+            .table-responsive {
+                overflow: visible;
+                height: auto;
+            }
+            .form-header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .form-header h2 {
+                margin: 0;
+                font-size: 24px;
+                color: #333;
+            }
+            .form-group {
+                margin-bottom: 20px;
+            }
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #555;
+            }
+            .dropdown {
+                position: relative;
+                width: 100%;
+            }
+            .dropdown-btn {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                text-align: left;
+                cursor: pointer;
+            }
+            .dropdown-btn:focus {
+                outline: none;
+                border-color: #007bff;
+            }
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #fff;
+                max-height: 200px;
+                overflow-y: auto;
+                z-index: 1000;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .dropdown-content.active {
+                display: block;
+            }
+            .dropdown-content label {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                cursor: pointer;
+            }
+            .dropdown-content label:hover {
+                background-color: #f1f1f1;
+            }
+            .dropdown-content input[type="checkbox"] {
+                margin-right: 10px;
+            }
+            .dropdown-search {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+                border-bottom: 1px solid #ccc;
+                outline: none;
+            }
+            .form-navigation {
+                text-align: center;
+                margin-top: 20px;
+            }
+            .form-navigation button {
+                padding: 10px 20px;
+                font-size: 16px;
+                border: none;
+                border-radius: 4px;
+                background-color: #007bff;
+                color: #fff;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="/"><img id ="logo" class="standard-logo" src="/static/assets/img/logo.jpg"/></a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Cài đặt</a>
+                        <a class="dropdown-item" href="#">Hoạt động</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Màn hình chính</div>
+                            <a class="nav-link" href="/">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Tác vụ</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Biểu đồ
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="/charts_inout">Xuất - Nhập</a>
+                                    <a class="nav-link" href="/charts_inside">Trong chuồng</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Bảng số liệu
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="/table_inout">Xuất - Nhập</a>
+                                    <a class="nav-link" href="/table_inside">Trong chuồng</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Tài khoản đăng nhập:</div>
+                        {{username}}
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area mr-1"></i>
+                                        Lựa chọn khu vực
+                                    </div>
+                                    <div class="table-responsive">
+                                        <div class="form-container">
+                                            <form id="multistepForm">
+                                                <div class="form-row">
+                                                    <!-- Bước 1: Chọn Miền -->
+                                                    <div class="form-group col-md-4">
+                                                        <label for="region">Chọn Miền</label>
+                                                        <div class="dropdown">
+                                                            <button type="button" id="regionDropdown" class="dropdown-btn">Chọn miền...</button>
+                                                            <div id="regionOptions" class="dropdown-content">
+                                                                <input type="text" id="regionSearch" class="dropdown-search" placeholder="Tìm kiếm miền...">
+                                                                <label><input type="checkbox" value="Miền Bắc"> Miền Bắc</label>
+                                                                <label><input type="checkbox" value="Miền Trung"> Miền Trung</label>
+                                                                <label><input type="checkbox" value="Miền Nam"> Miền Nam</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <!-- Bước 2: Chọn Tỉnh -->
+                                                    <div class="form-group col-md-4">
+                                                        <label for="province">Chọn Tỉnh</label>
+                                                        <div class="dropdown">
+                                                            <button type="button" id="provinceDropdown" class="dropdown-btn" disabled>Chọn tỉnh...</button>
+                                                            <div id="provinceOptions" class="dropdown-content">
+                                                                <input type="text" id="provinceSearch" class="dropdown-search" placeholder="Tìm kiếm tỉnh..." disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <!-- Bước 3: Chọn Trại -->
+                                                    <div class="form-group col-md-4">
+                                                        <label for="farm">Chọn Trại</label>
+                                                        <div class="dropdown">
+                                                            <button type="button" id="farmDropdown" class="dropdown-btn" disabled>Chọn trại...</button>
+                                                            <div id="farmOptions" class="dropdown-content">
+                                                                <input type="text" id="farmSearch" class="dropdown-search" placeholder="Tìm kiếm trại..." disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-navigation">
+                                                    <button type="submit">Hoàn tất</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Xuất chuồng</h5>
+                                        <p class="card-text" id="temperature">96 con</p>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-5">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nhập chuồng</h5>
+                                        <p class="card-text" id="humidity">96 con</p>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-md-6">
+                                <div class="card bg-danger text-white mb-6">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Trong chuồng</h5>
+                                        <p class="card-text" id="temperature">96 con</p>
+                                    </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">Xem chi tiết</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area mr-1"></i>
+                                        Số lượng lợn xuất/nhập chuồng
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="myAreaChart" style="width: 100%; height: 400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar mr-1"></i>
+                                        Số lượng lợn đếm được trong chuồng
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="myBarChart" style="width: 100%; height: 400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-table mr-1"></i>
+                                        Bảng số lượng lợn xuất/nhập chuồng
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>STT</th>
+                                                        <th>Ngày</th>
+                                                        <th>Trại</th>
+                                                        <th>Cửa</th>
+                                                        <th>Số lượng</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    {% for row in data2 %}
+                                                    <tr>
+                                                        <td>{{ loop.index }}</td>
+                                                        <td>{{ row[0] }}</td>
+                                                        <td>Phổ Yên</td>
+                                                        <td>1</td>
+                                                        <td>{{ row[1] }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-table mr-1"></i>
+                                        Bảng số lượng lợn trong chuồng
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>STT</th>
+                                                        <th>Ngày</th>
+                                                        <th>Trại</th>
+                                                        <th>Chuồng</th>
+                                                        <th>Số lượng</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    {% for row in data1 %}
+                                                    <tr>
+                                                        <td>{{ loop.index }}</td>
+                                                        <td>{{ row[0] }}</td>
+                                                        <td>Phổ Yên</td>
+                                                        <td>{{ row[1] }}</td>
+                                                        <td>{{ row[2] }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            $(document).ready(function() {
+                                var table = $('#example').DataTable({
+                                    responsive: true,
+                                    order: [[1, 'desc']]
+                                })
+                                .columns.adjust()
+                                .responsive.recalc();
+                            });
+                        </script>
+                        
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                </footer>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='assets/demo/datatables-demo.js') }}"></script>
+        <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  
+ 
+
+        <script type="text/javascript">
+            var dom = document.getElementById('myBarChart');
+            var date1 = JSON.parse('{{ date1 | safe}}');
+            var date2 = JSON.parse('{{ date2 | safe}}');
+            var date3 = JSON.parse('{{ date3 | safe}}');
+            var count1 = JSON.parse('{{ count1 | safe}}');
+            var count2 = JSON.parse('{{ count2 | safe}}');
+            var count3 = JSON.parse('{{ count3 | safe}}');
+            var myChart = echarts.init(dom, null, {
+            renderer: 'canvas',
+            useDirtyRect: false
+            });
+            var app = {};
+            
+            var option;
+
+            option = {
+        title: {
+            text: ''
+        },
+        tooltip: {
+            renderMode: 'richText',
+            trigger: 'axis'
+        },
+        legend: {},
+        dataZoom: [
+            {
+              type: 'inside',
+              start: 0,
+              end: 100
+            },
+            {
+              start: 0,
+              end: 100
+            }
+          ],
+        toolbox: {
+            show: true,
+            feature: {
+      
+            
+            magicType: { type: ['line', 'bar'] },
+            restore: {},
+            saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: date1
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+            formatter: '{value}'
+            }
+        },
+        series: [
+            {
+            name: 'Chuồng 1',
+            type: 'line',
+            data: count1,
+            
+            markLine: {
+                data: [{ type: 'average', name: 'Avg' }]
+            }
+            },
+            {
+            name: 'Chuồng 2',
+            type: 'line',
+            data: count2,
+            
+            markLine: {
+                data: [{ type: 'average', name: 'Avg' }]
+            }
+            },
+            {
+            name: 'Chuồng 3',
+            type: 'line',
+            data: count3,
+            markPoint: {
+                data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }]
+            },
+            markLine: {
+                data: [
+                { type: 'average', name: 'Avg' },
+                [
+                    {
+                    symbol: 'none',
+                    x: '90%',
+                    yAxis: 'max'
+                    },
+                    {
+                    symbol: 'circle',
+                    label: {
+                        position: 'start',
+                        formatter: 'Max'
+                    },
+                    
+                    }
+                ]
+                ]
+            }
+            }
+        ]
+        };
+
+            if (option && typeof option === 'object') {
+            myChart.setOption(option);
+            }
+
+            window.addEventListener('resize', myChart.resize);
+        </script>
+        <script type="text/javascript">
+            var dom = document.getElementById('myAreaChart');
+            var endtime = JSON.parse('{{ endtime | safe}}');
+            var count = JSON.parse('{{ count | safe}}');
+            var pig_in = JSON.parse('{{ pig_in | safe}}');
+            var myChart = echarts.init(dom, null, {
+                renderer: 'canvas',
+                useDirtyRect: false
+            });
+            var app = {};
+            
+            var option;
+
+            option = {
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    renderMode: 'richText',
+                    trigger: 'axis'
+                },
+                legend: {},
+                dataZoom: [
+                    {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        start: 0,
+                        end: 100
+                    }
+                ],
+                toolbox: {
+                    show: true,
+                    feature: {
+                        magicType: { type: ['line', 'bar'] },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                
+                
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: endtime
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                },
+                series: [
+                        {
+                        name: 'Số lợn nhập chuồng',
+                        type: 'line',
+                        data: pig_in,
+                        itemStyle: {
+                            color: 'rgba(255,70,131,255)'
+                        },
+                        markLine: {
+                            data: [{ type: 'average', name: 'Avg' }]
+                        }
+                        },   
+                        
+                        {
+                        name: 'Số lợn xuất chuồng',
+                        type: 'line',
+                        data: count,
+                        itemStyle: {
+                            color: '#28a745'
+                        },
+                        markPoint: {
+                            data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }]
+                        },
+                        
+                        markLine: {
+                            data: [
+                                { type: 'average', name: 'Avg' },
+                                [
+                                    {
+                                        symbol: 'none',
+                                        x: '90%',
+                                        yAxis: 'max'
+                                    },
+                                    {
+                                        symbol: 'circle',
+                                        label: {
+                                            position: 'start',
+                                            formatter: 'Max'
+                                        },
+                                        
+                                    }
+                                ]
+                            ]
+                        }
+                        
+                    }
+                    
+                    
+                ]
+            };
+
+            if (option && typeof option === 'object') {
+                myChart.setOption(option);
+            }
+
+            window.addEventListener('resize', myChart.resize);
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const regionDropdownBtn = document.getElementById('regionDropdown');
+                const regionOptions = document.getElementById('regionOptions');
+                const regionSearch = document.getElementById('regionSearch');
+                const provinceDropdownBtn = document.getElementById('provinceDropdown');
+                const provinceOptions = document.getElementById('provinceOptions');
+                const provinceSearch = document.getElementById('provinceSearch');
+                const farmGroup = document.getElementById('farmGroup');
+                const farmDropdownBtn = document.getElementById('farmDropdown');
+                const farmOptions = document.getElementById('farmOptions');
+                const farmSearch = document.getElementById('farmSearch');
+        
+                const provinces = {
+                    'Miền Bắc': {
+                        'Hà Nội': ['Farm A1', 'Farm B1', 'Farm C1'],
+                        'Hải Phòng': ['Farm A2', 'Farm B2', 'Farm C2'],
+                        'Quảng Ninh': ['Farm A3', 'Farm B3', 'Farm C3'],
+                        'Thái Nguyên': ['Farm A4', 'Farm B4', 'Farm C4']
+                    },
+                    'Miền Trung': {
+                        'Đà Nẵng': ['Farm A5', 'Farm B5', 'Farm C5'],
+                        'Huế': ['Farm A6', 'Farm B6', 'Farm C6'],
+                        'Quảng Nam': ['Farm A7', 'Farm B7', 'Farm C7'],
+                        'Quảng Ngãi': ['Farm A8', 'Farm B8', 'Farm C8']
+                    },
+                    'Miền Nam': {
+                        'TP. Hồ Chí Minh': ['Farm A9', 'Farm B9', 'Farm C9'],
+                        'Đồng Nai': ['Farm A10', 'Farm B10', 'Farm C10'],
+                        'Bình Dương': ['Farm A11', 'Farm B11', 'Farm C11'],
+                        'Cần Thơ': ['Farm A12', 'Farm B12', 'Farm C12']
+                    }
+                };
+        
+                // Hiển thị dropdown miền
+                regionDropdownBtn.addEventListener('click', function() {
+                    regionOptions.classList.toggle('active');
+                });
+        
+                // Hiển thị dropdown tỉnh
+                provinceDropdownBtn.addEventListener('click', function() {
+                    provinceOptions.classList.toggle('active');
+                });
+        
+                // Hiển thị dropdown trại
+                farmDropdownBtn.addEventListener('click', function() {
+                    farmOptions.classList.toggle('active');
+                });
+        
+                // Xử lý tìm kiếm miền
+                regionSearch.addEventListener('input', function() {
+                    const filter = regionSearch.value.toLowerCase();
+                    regionOptions.querySelectorAll('label').forEach(option => {
+                        const text = option.textContent.toLowerCase();
+                        option.style.display = text.includes(filter) ? '' : 'none';
+                    });
+                });
+        
+                // Xử lý tìm kiếm tỉnh
+                provinceSearch.addEventListener('input', function() {
+                    const filter = provinceSearch.value.toLowerCase();
+                    provinceOptions.querySelectorAll('label').forEach(option => {
+                        const text = option.textContent.toLowerCase();
+                        option.style.display = text.includes(filter) ? '' : 'none';
+                    });
+                });
+        
+                // Xử lý tìm kiếm trại
+                farmSearch.addEventListener('input', function() {
+                    const filter = farmSearch.value.toLowerCase();
+                    farmOptions.querySelectorAll('label').forEach(option => {
+                        const text = option.textContent.toLowerCase();
+                        option.style.display = text.includes(filter) ? '' : 'none';
+                    });
+                });
+        
+                // Xử lý khi chọn miền
+                regionOptions.addEventListener('change', function(event) {
+                    const selectedRegions = Array.from(regionOptions.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+                    const selectedText = selectedRegions.length > 0 ? selectedRegions.join(', ') : 'Chọn miền...';
+                    regionDropdownBtn.textContent = selectedText;
+        
+                    // Cập nhật dropdown tỉnh
+                    provinceDropdownBtn.disabled = selectedRegions.length === 0;
+                    provinceSearch.disabled = selectedRegions.length === 0;
+                    provinceOptions.innerHTML = '<input type="text" id="provinceSearch" class="dropdown-search" placeholder="Tìm kiếm tỉnh...">';
+                    selectedRegions.forEach(region => {
+                        if (provinces[region]) {
+                            for (const province in provinces[region]) {
+                                const label = document.createElement('label');
+                                const checkbox = document.createElement('input');
+                                checkbox.type = 'checkbox';
+                                checkbox.value = province;
+                                label.appendChild(checkbox);
+                                label.appendChild(document.createTextNode(province));
+                                provinceOptions.appendChild(label);
+                            }
+                        }
+                    });
+                    provinceDropdownBtn.textContent = 'Chọn tỉnh...'; // Reset text
+        
+                    // Gắn lại sự kiện tìm kiếm cho dropdown tỉnh
+                    document.getElementById('provinceSearch').addEventListener('input', function() {
+                        const filter = this.value.toLowerCase();
+                        provinceOptions.querySelectorAll('label').forEach(option => {
+                            const text = option.textContent.toLowerCase();
+                            option.style.display = text.includes(filter) ? '' : 'none';
+                        });
+                    });
+        
+                    // Đóng dropdown trại nếu chưa chọn tỉnh
+                    farmDropdownBtn.disabled = true;
+                    farmSearch.disabled = true;
+                    farmOptions.innerHTML = '';
+                    farmGroup.style.display = 'none';
+                });
+        
+                // Xử lý khi chọn tỉnh
+                // Xử lý khi chọn tỉnh
+                provinceOptions.addEventListener('change', function(event) {
+                    const selectedProvinces = Array.from(provinceOptions.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+                    const selectedText = selectedProvinces.length > 0 ? selectedProvinces.join(', ') : 'Chọn tỉnh...';
+                    provinceDropdownBtn.textContent = selectedText;
+
+                    // Cập nhật dropdown trại
+                    farmDropdownBtn.disabled = selectedProvinces.length === 0;
+                    farmSearch.disabled = selectedProvinces.length === 0;
+                    farmOptions.innerHTML = '<input type="text" id="farmSearch" class="dropdown-search" placeholder="Tìm kiếm trại...">';
+                    selectedProvinces.forEach(province => {
+                        for (const region in provinces) {
+                            if (provinces[region][province]) {
+                                provinces[region][province].forEach(farm => {
+                                    const label = document.createElement('label');
+                                    const checkbox = document.createElement('input');
+                                    checkbox.type = 'checkbox';
+                                    checkbox.value = farm;
+                                    label.appendChild(checkbox);
+                                    label.appendChild(document.createTextNode(farm));
+                                    farmOptions.appendChild(label);
+
+                                    // Gắn sự kiện cho checkbox của farm
+                                    checkbox.addEventListener('change', function() {
+                                        updateFarmPlaceholder();
+                                    });
+                                });
+                            }
+                        }
+                    });
+                    farmDropdownBtn.textContent = 'Chọn trại...'; // Reset text
+                    farmGroup.style.display = 'block'; // Hiển thị nhóm farm
+
+                    // Cập nhật lại sự kiện cho checkbox của farm
+                    function updateFarmPlaceholder() {
+                        const selectedFarms = Array.from(farmOptions.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+                        const farmText = selectedFarms.length > 0 ? selectedFarms.join(', ') : 'Chọn trại...';
+                        farmDropdownBtn.textContent = farmText;
+                    }
+                    
+                    // Đảm bảo cập nhật khi mở lại dropdown tỉnh
+                    updateFarmPlaceholder();
+                });
+
+                                
+                 
+                
+                // Xử lý khi submit form
+                const form = document.getElementById('multistepForm');
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+        
+                    const selectedRegions = Array.from(regionOptions.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+                    const selectedProvinces = Array.from(provinceOptions.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+                    const selectedFarms = Array.from(farmOptions.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+        
+                    alert('Bạn đã chọn miền: ' + selectedRegions.join(', ') + '\nTỉnh: ' + selectedProvinces.join(', ') + '\nTrại: ' + selectedFarms.join(', '));
+                });
+        
+                // Đóng dropdown khi click ra ngoài
+                document.addEventListener('click', function(event) {
+                    if (!regionDropdownBtn.contains(event.target) && !regionOptions.contains(event.target)) {
+                        regionOptions.classList.remove('active');
+                    }
+                    if (!provinceDropdownBtn.contains(event.target) && !provinceOptions.contains(event.target)) {
+                        provinceOptions.classList.remove('active');
+                    }
+                    if (!farmDropdownBtn.contains(event.target) && !farmOptions.contains(event.target)) {
+                        farmOptions.classList.remove('active');
+                    }
+                });
+            });
+        </script>
+
+    </body>
+</html>

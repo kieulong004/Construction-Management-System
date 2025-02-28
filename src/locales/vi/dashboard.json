@@ -1,0 +1,121 @@
+{
+  "header": {
+    "construction_Monitoring_Dashboard": "Bảng điều khiển giám sát công trình",
+    "logo": "biểu trưng"
+  },
+  "top-tabs": {
+    
+    "worker": "Công nhân",
+    "contractor": "Nhà thầu",
+    "safe_labor_hours": "Giờ an toàn lao động",
+    "discover_violations": "Phát hiện vi phạm",
+    "workers_at_the_site": "Công nhân tại công trường",
+    "daily_work": "Công việc hàng ngày"
+  },
+  "charts1": {
+    "workers": "Số lượng công nhân làm việc",
+    "quantity": "Số lượng",
+    "day_1": "Ngày 1",
+    "day_2": "Ngày 2",
+    "day_3": "Ngày 3",
+    "day_4": "Ngày 4",
+    "day":"Ngày"
+  },
+  "charts2": {
+    "work_progress": "Tiến độ công việc",
+    "contractor":"Nhà thầu",
+    "contractor_A": "Nhà thầu A",
+    "contractor_B": "Nhà thầu B",
+    "contractor_C": "Nhà thầu C",
+    "completed": "Đã hoàn thành",
+    "unfinished": "Chưa hoàn thành"
+  },
+  "charts3": {
+    "contractor":"Nhà thầu",
+    "worker_count": "Số lượng công nhân",
+    "contractor_A": "Nhà thầu A",
+    "contractor_B": "Nhà thầu B",
+    "contractor_C": "Nhà thầu C"
+  },
+  "charts4": {
+    "the_number_of_workers_violating_safety": "Số lượng công nhân vi phạm an toàn",
+    "quantity": "Số lượng",
+    "safety_hat":"Mũ bảo hộ",
+    "safety_vest":"Áo bảo hộ"
+  },
+  "charts5": {
+    "vehicle_count": "Số lượng phương tiện ra vào",
+    "vehicle": "Phương tiện",
+    "quantity": "Số lượng",
+    "vehicleIn": "Phương tiện vào",
+    "vehicleOut": "Phương tiện ra"
+  },
+  "charts6": {
+    "worker_check_in_out": "Số lượng công nhân in/out",
+    "quantity": "Số lượng",
+    "check_in": "Check-in",
+    "check_out": "Check-out",
+    "number_of_rows_per_page":"Số dòng trên mỗi trang"
+  },
+  "charts7": {
+    "safety_training_rate": "Tỉ lệ học an toàn",
+    "trained": "Đã học",
+    "not_trained": "Chưa học",
+    "status": "Trạng thái",
+    "quantity": "Số lượng"
+  },
+  "charts8": {
+    "workers_on_site": "Số lượng công nhân tại site",
+    "quantity": "Số lượng",
+    "time_of_day": "Giờ trong ngày"
+  },
+  "section2": {
+    "info": "Thông tin",
+    "value": "Giá trị",
+    "time": "Thời gian",
+    "event_type": "EventType",
+    "employee_id": "ID nhân viên",
+    "employee_name": "Tên nhân viên",
+    "helmet": "Mũ bảo hộ",
+    "vest": "Áo bảo hộ",
+    "face_recognition": "Xác thực khuôn mặt",
+    "no_vest": "0 áo",
+    "no_mask": "0 khẩu trang",
+    "id":"ID Camera",
+    "name":"Tên Camera",
+    "ip":"Địa chỉ IP",
+    "location":"Vị trí"
+  },
+  "table-taps": {
+    "recent_events": "5 sự kiện gần nhất",
+    "id": "ID Sự kiện",
+    "device_name": "Tên thiết bị",
+    "camera_name": "Tên camera",
+    "worker_name": "Tên Công nhân",
+    "contractor": "Nhà thầu",
+    "contractor_A": "Nhà thầu A",
+    "contractor_B": "Nhà thầu B",
+    "contractor_C": "Nhà thầu C",
+    "position": "Chức vụ",
+    "assistant": "Phụ hồ",
+    "Painter": "Thợ sơn",
+    "nguyen_duc_manh": "Nguyễn Đức Mạnh",
+    "safety_training": "Học an toàn",
+    "time": "Thời gian sự kiện",
+    "learned": "Đã học",
+    "safety_hat":"mũ bảo hộ",
+    "safety_vest":"áo bảo hộ",
+    "note": "Ghi chú",
+    "check_in": "Check-in",
+    "check_out": "Check-out",
+    "save_file_location":"Hình ảnh",
+    "inout":"Trạng thái",
+    "description":"Mô tả",
+    "vehicle_type":"Phương tiện",
+    "action": "Hành động"
+  },
+  "languaue":{
+    "date_format": "dd/MM/yyyy",
+    "time_format": "HH:mm"
+  }
+}
