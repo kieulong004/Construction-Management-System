@@ -14,12 +14,17 @@ import SitePage from '../pages/(admin)/Site'
 import AddLabor from '../pages/labor/_component/add'
 import AddContractor from '../pages/contractor/_component/add'
 import MyTable from '../components/date'
+import LayoutWebsite from '../pages/(website)/layout'
+import Homepage from '../pages/(website)/Homepage'
+import AboutPage from '../pages/(website)/About'
 
 const Router = () => {
   return (
     <>
         <Routes>
-            <Route path='/'>
+            <Route path='/' element={<LayoutWebsite />}>
+              <Route index element={<Homepage />} />
+              <Route path='about' element={<AboutPage/>} />
             </Route>
             <Route path="admin" element={<LayoutAdmin /> } >
               <Route path="dashboard" element={<DashboardPage />} />
