@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import * as echarts from "echarts";
 
 interface CheckChartComponentProps {
+  timeStart: string;
+  timeEnd: string;
   data: string[];
   title: string;
   tooltip: string;
@@ -25,6 +27,8 @@ const CheckChartComponent: React.FC<CheckChartComponentProps> = ({
   data,
   name,
   title,
+  timeStart,
+  timeEnd,
   darkMode,
   tooltip,
   xAxisData,
@@ -32,6 +36,7 @@ const CheckChartComponent: React.FC<CheckChartComponentProps> = ({
   quantity,
   seriesData,
 }) => {
+  console.log(timeStart, timeEnd);
   const { t } = useTranslation(["dashboard"]);
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<echarts.ECharts | null>(null);
@@ -51,10 +56,10 @@ const CheckChartComponent: React.FC<CheckChartComponentProps> = ({
     chartInstance.current.setOption({
       backgroundColor: backgroundColor,
       title: {
-        text: title,
-        left: "center",
+        text: `${title} ${timeStart} - ${timeEnd}`,
+        left: "10%",
         textStyle: {
-          fontSize: 24,
+          fontSize: 20,
           color: textColor,
           fontFamily: "Arial, sans-serif",
         },
@@ -66,7 +71,7 @@ const CheckChartComponent: React.FC<CheckChartComponentProps> = ({
         axisPointer: { type: "shadow" },
       },
       toolbox: {
-        top: "10px",
+        // top: "10px",
         feature: {
           dataView: { show: true, readOnly: false }, 
           magicType: { show: true, type: ["line", "bar"] }, 
@@ -130,6 +135,8 @@ const CheckChartComponent: React.FC<CheckChartComponentProps> = ({
     xAxisData,
     name,
     t,
+    timeStart,
+    timeEnd,
   ]);
 
   return <div ref={chartRef} style={{ width: "100%", height: "581px" }} />;

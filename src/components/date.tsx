@@ -1,56 +1,51 @@
-import React from 'react';
-import { Space, Table, Tag } from 'antd';
+import React, { useState } from "react";
+import axios from "axios";
+import "../app.css"
 
-const { Column, ColumnGroup } = Table;
+const Chatbot: React.FC = () => {
+  const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
+  const [input, setInput] = useState("");
 
-export interface IVehicle_event {
-  id: string;
-  camera_id: string;
-  inout: string;
-  save_file_location: string;
-  time: string;
-  vehicle_type: string;
-}
+  const sendMessage = async () => {
+    if (!input.trim()) return;
 
-const data: IVehicle_event[] = [
-  {
-    id: '1',
-    camera_id: 'cam1',
-    inout: 'in',
-    save_file_location: '/path/to/file1.jpg',
-    time: '2023-10-01 10:00:00',
-    vehicle_type: 'Motorbike',
-  },
-  {
-    id: '2',
-    camera_id: 'cam2',
-    inout: 'out',
-    save_file_location: '/path/to/file2.jpg',
-    time: '2023-10-01 11:00:00',
-    vehicle_type: 'Bicycle',
-  },
-  {
-    id: '3',
-    camera_id: 'cam3',
-    inout: 'in',
-    save_file_location: '/path/to/file3.jpg',
-    time: '2023-10-01 12:00:00',
-    vehicle_type: 'Motorbike',
-  },
-];
+    const newMessages = [...messages, { sender: "user", text: input }];
+    setMessages(newMessages);
+    setInput("");
 
-const App: React.FC = () => (
-  <Table<IVehicle_event> dataSource={data}>
-    <Column title="Giờ trong ngày" dataIndex="id" key="id" />
-    <ColumnGroup title="Motorbike">
-      <Column title="số lần in" dataIndex="10" key="inout" />
-      <Column title="số lần out" dataIndex="inout" key="inout" />
-    </ColumnGroup>
-    <ColumnGroup title="Bicycle">
-      <Column title="số lần in" dataIndex="inout" key="inout" />
-      <Column title="số lần out" dataIndex="inout" key="inout" />
-    </ColumnGroup>
-  </Table>
-);
+    try {
+      const res = await axios.post("http://192.168.100.72:5000/chat", { message: input });
+      console.log(res.data);
+      setMessages([...newMessages, { sender: "bot", text: res.data.response }]);
+    } catch {
+      setMessages([...newMessages, { sender: "bot", text: "Lỗi kết nối API!" }]);
+    }
+  };
 
-export default App;
+  return (
+    <div className="w-full max-w-md p-4 bg-gray-800 rounded-lg shadow-md">
+      <div className="h-80 overflow-y-auto bg-gray-700 p-2 rounded">
+        {messages.map((msg, i) => (
+          <div key={i} className={`p-2 my-1 rounded ${msg.sender === "user" ? "bg-blue-500 text-white ml-auto w-fit" : "bg-gray-500 text-white"}`}>
+            {msg.text}
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex">
+        <input
+          type="text"
+          className="flex-1 p-2 border rounded bg-gray-900 text-white"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          placeholder="Nhập tin nhắn..."
+        />
+        <button className="ml-2 p-2 bg-blue-600 text-white rounded" onClick={sendMessage}>
+          Gửi
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Chatbot;

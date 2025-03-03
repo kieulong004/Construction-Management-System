@@ -123,6 +123,8 @@ const ExitingPage = () => {
       <DataFilter onFilter={handleFilter} darkMode={chart5.darkMode} />
       <div className="chart-workers">
         <ExitingChartComponent
+          timeStart={dayjs.utc(startDate).format("DD/MM/YYYY")}
+          timeEnd={dayjs.utc(endDate).format("DD/MM/YYYY")}
           title={chart5.title}
           tooltip={chart5.tooltip}
           legend={chart5.legend}

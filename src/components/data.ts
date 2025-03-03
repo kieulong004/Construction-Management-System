@@ -8,13 +8,12 @@ export const useChartData = (startDate: string, endDate: string, camera_id: numb
   const { inOutCounts, timeInOut } = useInOut(startDate, endDate, camera_id);
   const { vehicleCounts, timeVehicle } = useVehicles(startDate, endDate, camera_id);
   const { safetyCounts, timeSafety } = useSafety(startDate, endDate, camera_id);
-
+  console.log(vehicleCounts);
   const commonProps = {
     tooltip: "axis",
     legend: "0%",
     darkMode: darkMode,
   };
-
 
   return {
     chart1: {
@@ -103,7 +102,6 @@ export const useChartData = (startDate: string, endDate: string, camera_id: numb
           name: t("charts4.safety_hat"),
           stack: "total",
         },
-
       ],
       quantity: t("charts4.quantity"),
       data: [t("charts4.safety_hat"), t("charts4.safety_vest")],
@@ -113,22 +111,25 @@ export const useChartData = (startDate: string, endDate: string, camera_id: numb
       ...commonProps,
       title: t("charts5.vehicle_count"),
       xAxisData: timeVehicle,
-      seriesData: [
+      seriesData: vehicleCounts.flatMap(({ type, inData, outData }) => [
         {
-          data: vehicleCounts.map((item) => item.totalIn),
+          name: `${type} in`,
           type: "bar",
-          stack: "bicycle",
-          name: t("charts5.vehicleIn"),
+          stack: "in",
+          data: inData
         },
         {
-          data: vehicleCounts.map((item) => item.totalOut),
+          name: `${type} out`,
           type: "bar",
-          stack: "bicycle",
-          name: t("charts5.vehicleOut"),
+          stack: "out",
+          data: outData
         }
-      ],
+      ]),
       quantity: t("charts5.quantity"),
-      data: [t("charts5.vehicleIn"), t("charts5.vehicleOut")],
+      data: vehicleCounts.flatMap(({ type }) => [
+        `${type} in`,
+        `${type} out`
+      ]),
       name: t("charts8.time_of_day"),
     },
     chart6: {

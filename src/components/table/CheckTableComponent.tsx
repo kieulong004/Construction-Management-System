@@ -72,15 +72,17 @@ const CheckTableComponent: React.FC<CheckTableProps> = ({
         borderLeft: darkMode ? "1px solid #000" : "1px solid #D6D6D6",
       }}
     >
-      <h2 style={{ textAlign: "center", marginBottom: "24px" }}>{title}</h2>
+      <h2 style={{fontSize:"20px", textAlign: "center", marginBottom: "24px" }}>{title}</h2>
       <Table
         columns={columns}
         dataSource={tableData}
         pagination={false}
         rowClassName={(_, index) =>
-          `${darkMode ? "dark-mode" : "light-mode"}-${
-            index % 2 === 0 ? "odd" : "even"
-          }-row`
+          index === tableData.length - 1
+            ? "bold-row"
+            : `${darkMode ? "dark-mode" : "light-mode"}-${
+                index % 2 === 0 ? "odd" : "even"
+              }-row`
         }
         style={{
           overflow: "hidden",

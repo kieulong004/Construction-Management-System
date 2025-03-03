@@ -1,3 +1,34 @@
+
+::-webkit-scrollbar {
+  width: 10px; 
+  height: 8px; 
+  border-radius: 5px; 
+
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background: #333; 
+} 
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+body.dark-mode ::-webkit-scrollbar-track {
+  background: #333; 
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -44,6 +75,7 @@ header .bars {
   width: 60px;
   height: 100%;
   margin-top: 10px;
+
 }
 
 section {
@@ -124,7 +156,6 @@ table th {
   color: white;
 }
 
-/* Light mode row colors */
 .light-mode-odd-row {
   background-color: #f9f9f9;
 }
@@ -133,7 +164,6 @@ table th {
   background-color: #ffffff;
 }
 
-/* Dark mode row colors */
 .dark-mode-odd-row {
   background-color: #333333;
   color: white;
@@ -150,11 +180,21 @@ body.dark-mode .ant-table-thead th {
   border-bottom: 1px solid #333; 
 }
 
-/* Hover effect */
 .ant-table-tbody > tr:hover {
   background-color: rgba(0, 0, 255, 0.2) !important;
   color: #333;
 }
+
+.bold-row {
+  background: #f9f9f9;
+  font-weight: bold;
+}
+body.dark-mode .bold-row {
+  background: #333333;
+  color: white;
+}
+
+
 
 .half-container {
   height: 100%;
@@ -280,7 +320,6 @@ body.dark-mode .ant-table-thead th {
   color: #121212;
 }
 
-/* Dark mode styles */
 .dark-mode header,
 .dark-mode header section,
 .dark-mode header section span {

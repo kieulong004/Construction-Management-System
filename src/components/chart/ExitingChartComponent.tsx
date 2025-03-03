@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import * as echarts from "echarts";
 
 interface ExitingChartComponentProps {
+  timeStart: string;
+  timeEnd: string;
   data: string[];
   title: string;
   tooltip: string;
@@ -15,6 +17,8 @@ interface ExitingChartComponentProps {
 }
 
 const ExitingChartComponent: React.FC<ExitingChartComponentProps> = ({
+  timeStart,
+  timeEnd,
   data,
   name,
   title,
@@ -35,8 +39,8 @@ const ExitingChartComponent: React.FC<ExitingChartComponentProps> = ({
     chart.setOption({
       backgroundColor: backgroundColor,
       title: {
-        text: title,
-        left: "center",
+        text: `${title} ${timeStart} - ${timeEnd}`,
+        left: "10%",
         textStyle: { color: textColor, fontFamily: "Arial, sans-serif" },
       },
       tooltip: {
@@ -46,17 +50,18 @@ const ExitingChartComponent: React.FC<ExitingChartComponentProps> = ({
         axisPointer: { type: "shadow" },
       },
       toolbox: {
-        top: "10px",
         feature: {
           dataView: { show: true, readOnly: false }, 
           magicType: { show: true, type: ["line", "bar"] }, 
           restore: { show: true }, 
           saveAsImage: { show: true }, 
         },
-        axisLine: { lineStyle: { color: textColor } },
-        axisLabel: { color: textColor },
+        iconStyle: {
+          borderColor: textColor, 
+        },
       },
       legend: {
+        type: "scroll",
         data: data,
         bottom: legend,
         textStyle: { color: textColor, fontFamily: "Arial, sans-serif" },
@@ -92,6 +97,8 @@ const ExitingChartComponent: React.FC<ExitingChartComponentProps> = ({
       });
     };
   }, [
+    timeStart,
+    timeEnd,
     data,
     darkMode,
     title,

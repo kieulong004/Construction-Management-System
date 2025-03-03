@@ -60,29 +60,27 @@ const ExitingTableComponent: React.FC<ExitingTableProps> = ({
     <div
       ref={tableRef}
       style={{
-        padding: "0 14px",
-        backgroundColor: darkMode ? "#393835" : "#f0f0f0",
-        color: darkMode ? "#ffffff" : "#000000",
-        borderLeft: darkMode ? "1px solid #000" : "1px solid #D6D6D6",
+      overflowX: "auto",
+      padding: "0 14px",
+      backgroundColor: darkMode ? "#393835" : "#f0f0f0",
+      color: darkMode ? "#ffffff" : "#000000",
+      borderLeft: darkMode ? "1px solid #000" : "1px solid #D6D6D6",
+      borderRight: darkMode ? "1px solid #000" : "1px solid #D6D6D6", // Added borderRight to match borderLeft
       }}
     >
       <h2 style={{ textAlign: "center", marginBottom: "24px" }}>{title}</h2>
       <Table
-        columns={columns}
-        dataSource={tableData}
-        pagination={false}
-        rowClassName={(_, index) =>
-          index % 2 === 0
-            ? darkMode
-              ? "dark-mode-even-row"
-              : "light-mode-even-row"
-            : darkMode
-            ? "dark-mode-odd-row"
-            : "light-mode-odd-row"
-        }
-        style={{
-          overflow: "hidden",
-        }}
+      columns={columns}
+      dataSource={tableData}
+      
+      pagination={false}
+      rowClassName={(_, index) =>
+        index === tableData.length - 1
+        ? "bold-row"
+        : `${darkMode ? "dark-mode" : "light-mode"}-${
+          index % 2 === 0 ? "odd" : "even"
+          }-row`
+      }
       />
     </div>
   );

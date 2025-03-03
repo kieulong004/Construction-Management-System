@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import * as echarts from "echarts";
 
 interface SafetyChartComponentProps {
+  timeStart: string;
+  timeEnd: string;
   title: string;
   xAxisData: string[];
   YAxisData?: string[];
@@ -18,6 +20,8 @@ interface SafetyChartComponentProps {
 }
 
 const SafetyChartComponent: React.FC<SafetyChartComponentProps> = ({
+  timeStart,
+  timeEnd,
   title,
   xAxisData,
   YAxisData,
@@ -25,7 +29,7 @@ const SafetyChartComponent: React.FC<SafetyChartComponentProps> = ({
   darkMode,
   tooltip,
   legend,
-  quantity
+  quantity,
 }) => {
   console.log(YAxisData);
   useEffect(() => {
@@ -36,8 +40,8 @@ const SafetyChartComponent: React.FC<SafetyChartComponentProps> = ({
     chart.setOption({
       backgroundColor: backgroundColor,
       title: {
-        text: title,
-        left: "center",
+        text: `${title} ${timeStart} - ${timeEnd}`,
+        left: "10%",
         textStyle: {
           fontSize: 20,
           color: textColor,
@@ -51,22 +55,25 @@ const SafetyChartComponent: React.FC<SafetyChartComponentProps> = ({
         textStyle: { color: textColor, fontFamily: "Arial, sans-serif" },
       },
       toolbox: {
-        top: "10px",
         feature: {
-          dataView: { show: true, readOnly: false }, 
-          magicType: { show: true, type: ["line", "bar"] }, 
-          restore: { show: true }, 
-          saveAsImage: { show: true }, 
+          dataView: { show: true, readOnly: false },
+          magicType: { show: true, type: ["line", "bar"] },
+          restore: { show: true },
+          saveAsImage: { show: true },
         },
         axisLine: { lineStyle: { color: textColor } },
         axisLabel: { color: textColor },
       },
-      legend: { bottom: legend,marginBottom:"10", textStyle: { fontFamily: "Arial, sans-serif" } },
+      legend: {
+        bottom: legend,
+        marginBottom: "10",
+        textStyle: { fontFamily: "Arial, sans-serif" },
+      },
       xAxis: {
         type: "category",
         data: xAxisData,
         axisLine: { lineStyle: { color: textColor } },
-        axisLabel: {styleText:{ color: textColor },rotate: 45},
+        axisLabel: { styleText: { color: textColor }, rotate: 45 },
       },
       yAxis: {
         type: "value",
@@ -90,14 +97,19 @@ const SafetyChartComponent: React.FC<SafetyChartComponentProps> = ({
         chart.resize();
       });
     };
-  }, [darkMode, title, xAxisData, seriesData, legend, tooltip, quantity]);
+  }, [
+    timeStart,
+    timeEnd,
+    darkMode,
+    title,
+    xAxisData,
+    seriesData,
+    legend,
+    tooltip,
+    quantity,
+  ]);
 
-  return (
-    <div
-      id="chart4"
-      style={{ width: "100%", height: "581px", }}
-    ></div>
-  );
+  return <div id="chart4" style={{ width: "100%", height: "581px" }}></div>;
 };
 
 export default SafetyChartComponent;

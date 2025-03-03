@@ -114,6 +114,8 @@ const SafetyPage = () => {
       <DataFilter onFilter={handleFilter} darkMode={chart4.darkMode} />
       <div className="chart-workers">
         <SafetyChartComponent
+          timeStart={dayjs.utc(startDate).format("DD/MM/YYYY")}
+          timeEnd={dayjs.utc(endDate).format("DD/MM/YYYY")}
           title={chart4.title}
           seriesData={chart4.seriesData}
           tooltip={chart4.tooltip}

@@ -68,13 +68,11 @@ const SafetyTableComponent: React.FC<SafetyTableProps> = ({
         dataSource={tableData}
         pagination={false}
         rowClassName={(_, index) =>
-          index % 2 === 0
-            ? darkMode
-              ? "dark-mode-even-row"
-              : "light-mode-even-row"
-            : darkMode
-            ? "dark-mode-odd-row"
-            : "light-mode-odd-row"
+          index === tableData.length - 1
+            ? "bold-row"
+            : `${darkMode ? "dark-mode" : "light-mode"}-${
+                index % 2 === 0 ? "odd" : "even"
+              }-row`
         }
         style={{
           overflow: "hidden",

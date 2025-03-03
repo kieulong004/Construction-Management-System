@@ -178,6 +178,7 @@ export const useVehicles = (
         camera_id,
         "vehicles"
       );
+      console.log(response);
       setVehiclesData(response);
     } catch (error) {
       console.error("Error fetching camera data:", error);
@@ -190,24 +191,36 @@ export const useVehicles = (
 
   const filterDataByTimeOfDay = useCallback(
     (data: IVehicle_event[], timeOfDay: string[]) => {
-      return timeOfDay.map((time) => {
-        const [start, end] = time
-          .split("-")
-          .map((t) => parseInt(t.replace("h", ""), 10));
-        const filteredData = data.filter((item) => {
-          const hour = dayjs.utc(item.time).hour();
-          return hour >= start && hour < end;
+      const vehicleTypes = [...new Set(data.map(item => item.vehicle_type))];
+      const inout = [...new Set(data.map(item => item.inout))];
+      console.log(inout);
+      const result = vehicleTypes.map(type => {
+        const inData = timeOfDay.map(time => {
+          const [start, end] = time.split("-").map(t => parseInt(t.replace("h", ""), 10));
+          const filteredData = data.filter(item => {
+            const hour = dayjs.utc(item.time).hour();
+            return item.vehicle_type === type && item.inout === "in" && hour >= start && hour < end;
+          });
+          return filteredData.length;
         });
-  
-        const totalIn = filteredData.filter((item) => item.inout === "in").length;
-        const totalOut = filteredData.filter((item) => item.inout === "out").length;
-  
+
+        const outData = timeOfDay.map(time => {
+          const [start, end] = time.split("-").map(t => parseInt(t.replace("h", ""), 10));
+          const filteredData = data.filter(item => {
+            const hour = dayjs.utc(item.time).hour();
+            return item.vehicle_type === type && item.inout === "out" && hour >= start && hour < end;
+          });
+          return filteredData.length;
+        });
+
         return {
-          time,
-          totalIn,
-          totalOut,
+          type,
+          inData,
+          outData
         };
       });
+
+      return result;
     },
     []
   );

@@ -26,6 +26,7 @@ const CheckPage = () => {
   const { t } = useTranslation(["dashboard"]);
   dayjs.extend(utc);
 
+  
   const handleFilter = useCallback(
     async (startDate: string, endDate: string, camera_id: number[]) => {
       setStartDate(startDate);
@@ -108,6 +109,8 @@ const CheckPage = () => {
       <DataFilter onFilter={handleFilter} darkMode={chart6.darkMode} />
       <div className="chart-workers">
         <CheckChartComponent
+          timeStart={dayjs.utc(startDate).format("DD/MM/YYYY")}
+          timeEnd={dayjs.utc(endDate).format("DD/MM/YYYY")}
           title={chart6.title}
           tooltip={chart6.tooltip}
           legend={chart6.legend}
